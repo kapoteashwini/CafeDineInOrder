@@ -21,6 +21,21 @@ class AdminController < ApplicationController
     end
   end
 
+  def generate_invoice
+    @order = Order.find(params[:id])
+    # Add any logic needed to gather invoice details
+    
+    respond_to do |format|
+      format.html # Render generate_invoice.html.erb
+      format.pdf do
+        pdf = InvoicePdf.new(@order) # Assuming you're using Prawn or some other PDF generation gem
+        send_data pdf.render, filename: "invoice_#{@order.id}.pdf",
+                              type: 'application/pdf',
+                              disposition: 'inline'
+      end
+    end
+  end
+
 
   
 end

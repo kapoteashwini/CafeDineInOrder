@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :get_menu_item
   def index
     @orders = Order.all
   end
@@ -44,5 +45,9 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:user_id, order_items_attributes: [:menu_item_id, :quantity])
+  end
+
+  def get_menu_item
+     @menu_items = MenuItem.all
   end
 end

@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Place Order</h1>
+  <%= form_with(model: @order, local: true) do |form| %>
+    <div class="row">
+      <% @menu_items.each do |item| %>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+              <p class="card-text"><%= item.description %></p>
+              <p class="card-text"><strong>Price: </strong><%= number_to_currency(item.price) %></p>
+              <%= form.fields_for :order_items do |order_item_form| %>
+                <%= order_item_form.hidden_field :menu_item_id, value: item.id %>
+                <%= order_item_form.number_field :quantity, min: 1, placeholder: 'Quantity' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= form.submit 'Place Order', class: 'btn btn-primary' %>
+  <% end %>
+</div>

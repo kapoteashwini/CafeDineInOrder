@@ -1,6 +1,10 @@
 <div class="container">
   <h1>Place Order</h1>
   <%= form_with(model: @order, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :table_number, 'Table Number' %>
+      <%= form.select :table_number, options_for_select((1..10).map { |n| [n, n] }), {}, { class: 'form-control' } %>
+    </div>
     <div class="row">
       <% @menu_items.each_with_index do |item, index| %>
         <div class="col-md-4">

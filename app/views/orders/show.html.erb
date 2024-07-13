@@ -6,6 +6,7 @@
       <li><%= item.menu_item.name %> - Quantity: <%= item.quantity %></li>
     <% end %>
   </ul>
-  <%= link_to 'Mark as Served', mark_as_served_path(@order), method: :patch, class: 'btn btn-success' %>
+  <%= link_to 'Mark as Served', mark_as_served_admin_order(order), method: :patch, class: 'btn btn-success' %>
+  <%= link_to 'Mark as Canceled', mark_as_canceled_admin_order_path(order), method: :patch, class: 'btn btn-danger' %>
   <%= link_to 'Generate Invoice', generate_invoice_path(@order), method: :patch, class: 'btn btn-warning' %>
 </div>

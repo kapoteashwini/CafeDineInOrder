@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.status = 'Received'
+    @order.user = User.last
+    
     if @order.save
       redirect_to @order
     else
@@ -44,7 +46,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:user_id, order_items_attributes: [:menu_item_id, :quantity])
+    params.require(:order).permit(:table_number, order_items_attributes: [:menu_item_id, :quantity])
   end
 
   def get_menu_item

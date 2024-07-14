@@ -7,21 +7,28 @@
     </div>
     <div class="row">
       <% @menu_items.each_with_index do |item, index| %>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="card mb-4">
-            <div class="card-body">
+            <% if item.image.attached? %>
+              <%= image_tag item.image, class: 'card-img-top', style: "height: 150px; object-fit: cover;" %>
+            <% end %>
+            <div class="card-body text-center">
               <h5 class="card-title"><%= item.name %></h5>
               <p class="card-text"><%= item.description %></p>
               <p class="card-text"><strong>Price: </strong><%= number_to_currency(item.price) %></p>
               <%= form.fields_for :order_items, @order.order_items.build do |order_item_form| %>
                 <%= order_item_form.hidden_field :menu_item_id, value: item.id %>
-                <%= order_item_form.number_field :quantity, min: 1, placeholder: 'Quantity' %>
+                <div class="form-group">
+                  <%= order_item_form.number_field :quantity, min: 1, placeholder: 'Quantity', class: 'form-control' %>
+                </div>
               <% end %>
             </div>
           </div>
         </div>
       <% end %>
     </div>
-    <%= form.submit 'Place Order', class: 'btn btn-primary' %>
+    <div class="text-center">
+      <%= form.submit 'Place Order', class: 'btn btn-primary btn-lg' %>
+    </div>
   <% end %>
 </div>
